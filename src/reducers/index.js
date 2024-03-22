@@ -1,7 +1,9 @@
+// reducers/index.js
 import { combineReducers } from 'redux';
+import dataReducer from './dataReducer';
 
 const rootReducer = combineReducers({
-  // seus reducers aqui
+  data: dataReducer
 });
 
 export default rootReducer;
