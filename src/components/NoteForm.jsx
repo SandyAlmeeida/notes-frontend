@@ -7,14 +7,14 @@ const NoteForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const noteToUpdate = useSelector(state => state.notes.notes); // Obtém apenas a nota atual do estado Redux
+  const noteToUpdate = useSelector(state => state.notes.notes);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchNoteById(id)); // Despacha a ação para buscar a nota pelo ID
+      dispatch(fetchNoteById(id));
     }
   }, [id, dispatch]);
 
