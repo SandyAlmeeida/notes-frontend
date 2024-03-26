@@ -45,4 +45,4 @@ Para iniciar o projeto, execute o seguinte comando no terminal:
 npm run dev
 ```
 
-O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
+O projeto estará disponível em [http://localhost:5173](http://localhost:5173).
