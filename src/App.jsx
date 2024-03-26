@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Notes from './components/Notes';
+import NoteForm from './components/NoteForm';
 import Tags from './components/Tags';
+import TagForm from './components/TagForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -30,8 +32,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/new" element={<NoteForm/>} />
+          <Route path="/notes/:id/edit" element={<NoteForm/>} />
           <Route path="/tags" element={<Tags />} />
-          {/* Outras rotas */}
+          <Route path="/notes/new" element={<TagForm/>} />
+          <Route path="/notes/:id/edit" element={<TagForm/>} />
         </Routes>
       </div>
     </Router>

@@ -1,50 +1,61 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotes, fetchTags } from '../actions/dataActions';
+import { useNavigate } from 'react-router-dom';
+import { fetchNotes, deleteNote } from '../store/notesSlice';
 
-function NotesAndTags() {
+const Notes = () => {
   const dispatch = useDispatch();
-  const notes = useSelector(state => state.data.notes);
-  const tags = useSelector(state => state.data.tags);
-  const loadingNotes = useSelector(state => state.data.loadingNotes);
-  const loadingTags = useSelector(state => state.data.loadingTags);
-  const errorNotes = useSelector(state => state.data.errorNotes);
-  const errorTags = useSelector(state => state.data.errorTags);
+  const navigate = useNavigate();
+  const notes = useSelector(state => state.notes.notes);
+  const status = useSelector(state => state.notes.status);
+  const error = useSelector(state => state.notes.error);
 
   useEffect(() => {
     dispatch(fetchNotes());
-    dispatch(fetchTags());
   }, [dispatch]);
 
-  return (
-    <div>
-      <h2>Notes</h2>
-      {loadingNotes ? (
-        <div>Loading Notes...</div>
-      ) : errorNotes ? (
-        <div>Error fetching notes: {errorNotes}</div>
-      ) : (
-        <ul>
-          {notes.map(note => (
-            <li key={note.id}>{note.title}</li>
-          ))}
-        </ul>
-      )}
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
 
-      <h2>Tags</h2>
-      {loadingTags ? (
-        <div>Loading Tags...</div>
-      ) : errorTags ? (
-        <div>Error fetching tags: {errorTags}</div>
-      ) : (
-        <ul>
-          {tags.map(tag => (
-            <li key={tag.id}>{tag.name}</li>
-          ))}
-        </ul>
-      )}
+  if (status === 'failed') {
+    return <div>Error: {error}</div>;
+  }
+  
+  const handleEditClick = (noteId) => {
+    navigate(`/notes/${noteId}/edit`);
+  };
+
+  const handleDeleteClick = (noteId) => {
+    dispatch(deleteNote(noteId));
+  };
+
+  return (
+    <div className="m-4">
+      <h2>Notas</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Descrição</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {notes.map(note => (
+            <tr key={note.id}>
+              <td>{note.title}</td>
+              <td>{note.description}</td>
+              <td align='right'>
+                <button type="button" className="btn btn-primary" onClick={() => handleEditClick(note.id)}>Editar</button>
+                <button type="button" className="btn btn-danger ms-3" onClick={() => handleDeleteClick(note.id)}>Excluir</button>
+              </td>
+            </tr>
+          ))}  
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
-export default NotesAndTags;
+export default Notes;
