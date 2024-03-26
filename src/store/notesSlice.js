@@ -9,6 +9,8 @@ import {
 
 const initialState = {
   notes: [],
+  note: {},
+  editedNote: {},
   status: 'idle',
   error: null
 };
@@ -29,7 +31,9 @@ export const createNote = createAsyncThunk('notes/createNote', async (noteData) 
 });
 
 export const updateNote = createAsyncThunk('notes/updateNote', async (noteData) => {
-  const response = await updateNoteAPI(noteData);
+  const { id } = noteData;
+  delete noteData.id;
+  const response = await updateNoteAPI(id, noteData);
   return response;
 });
 
@@ -41,7 +45,11 @@ export const deleteNote = createAsyncThunk('notes/deleteNote', async (noteId) =>
 const notesSlice = createSlice({
   name: 'notes',
   initialState,
-  reducers: {},
+  reducers: {
+    setEditedNote: (state, action) => {
+      state.editedNote = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchNotes.pending, (state) => {
@@ -60,7 +68,7 @@ const notesSlice = createSlice({
       })
       .addCase(fetchNoteById.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.notes = action.payload;
+        state.note = action.payload;
       })
       .addCase(fetchNoteById.rejected, (state, action) => {
         state.status = 'failed';
@@ -82,5 +90,7 @@ const notesSlice = createSlice({
       });
   }
 });
+
+export const { setEditedNote } = notesSlice.actions; // Exportar a ação para definir a nota editada
 
 export default notesSlice.reducer;

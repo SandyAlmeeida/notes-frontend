@@ -7,7 +7,7 @@ export const fetchNotes = async () => {
     const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    console.error('Error fetching notes:', error);
+    console.error('Error ao buscar notas:', error);
     throw error;
   }
 };
@@ -15,7 +15,6 @@ export const fetchNotes = async () => {
 export const fetchNoteById = async (id) => {
   try {
     const response = await axios.get(`${API_URL}/${id}`);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar nota por ID:', error);
@@ -28,7 +27,7 @@ export const createNote = async (noteData) => {
     const response = await axios.post(API_URL, noteData);
     return response.data;
   } catch (error) {
-    console.error('Error creating note:', error);
+    console.error('Erro ao criar nota:', error);
     throw error;
   }
 };
@@ -38,7 +37,7 @@ export const updateNote = async (noteId, updatedNoteData) => {
     const response = await axios.put(`${API_URL}/${noteId}`, updatedNoteData);
     return response.data;
   } catch (error) {
-    console.error('Error updating note:', error);
+    console.error('Erro ao atualizar nota:', error);
     throw error;
   }
 };
@@ -48,7 +47,7 @@ export const deleteNote = async (noteId) => {
     const response = await axios.delete(`${API_URL}/${noteId}`);
     return response.data;
   } catch (error) {
-    console.error('Error deleting note:', error);
+    console.error('Erro ao deletar nota:', error);
     throw error;
   }
 };

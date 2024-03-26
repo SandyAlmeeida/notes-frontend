@@ -20,7 +20,7 @@ function App() {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/notes">Notes</Link>
+                  <Link className="nav-link" to="/notes">Notas</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/tags">Tags</Link>
@@ -35,8 +35,8 @@ function App() {
           <Route path="/notes/new" element={<NoteForm/>} />
           <Route path="/notes/:id/edit" element={<NoteForm/>} />
           <Route path="/tags" element={<Tags />} />
-          <Route path="/notes/new" element={<TagForm/>} />
-          <Route path="/notes/:id/edit" element={<TagForm/>} />
+          <Route path="/tags/new" element={<TagForm/>} />
+          <Route path="/tags/:id/edit" element={<TagForm/>} />
         </Routes>
       </div>
     </Router>

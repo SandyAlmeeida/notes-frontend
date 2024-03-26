@@ -1,8 +1,48 @@
-# React + Vite
+# Projeto Frontend - Sistema de Notas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o projeto frontend de um sistema de notas que utiliza as seguintes tecnologias:
 
-Currently, two official plugins are available:
+- React
+- Redux
+- Vite
+- Bootstrap 5
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos do Sistema
+
+- Node.js 20.11.1 ou superior
+
+## Configuração do Ambiente
+
+### 1. Instalação do Node.js:
+
+- Faça o download e a instalação do Node.js a partir do [site oficial](https://nodejs.org/).
+- Verifique a instalação executando o seguinte comando no terminal:
+  ```bash
+  node --version
+  ```
+
+## Configuração do Projeto
+
+### 1. Clonar o Repositório:
+
+Clone este repositório para sua máquina local usando o seguinte comando:
+```bash
+git clone git@github.com:SandyAlmeeida/notes-frontend.git
+```
+
+### 2. Instalar Dependências:
+
+Navegue até o diretório do projeto e instale as dependências executando:
+```bash
+cd notes-frontend
+npm install
+```
+
+## Executando o Projeto
+
+Para iniciar o projeto, execute o seguinte comando no terminal:
+```bash
+npm run dev
+```
+
+O projeto estará disponível em [http://localhost:3000](http://localhost:3000).

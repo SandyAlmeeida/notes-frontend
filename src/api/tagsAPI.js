@@ -7,7 +7,17 @@ export const fetchTags = async () => {
     const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    console.error('Error fetching tags:', error);
+    console.error('Error ao buscar tags:', error);
+    throw error;
+  }
+};
+
+export const fetchTagById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar tag por ID:', error);
     throw error;
   }
 };
@@ -17,7 +27,7 @@ export const createTag = async (tagData) => {
     const response = await axios.post(API_URL, tagData);
     return response.data;
   } catch (error) {
-    console.error('Error creating tag:', error);
+    console.error('Erro ao criar tag:', error);
     throw error;
   }
 };
@@ -27,7 +37,7 @@ export const updateTag = async (tagId, updatedTagData) => {
     const response = await axios.put(`${API_URL}/${tagId}`, updatedTagData);
     return response.data;
   } catch (error) {
-    console.error('Error updating tag:', error);
+    console.error('Erro ao atualizar tag:', error);
     throw error;
   }
 };
@@ -37,7 +47,7 @@ export const deleteTag = async (tagId) => {
     const response = await axios.delete(`${API_URL}/${tagId}`);
     return response.data;
   } catch (error) {
-    console.error('Error deleting tag:', error);
+    console.error('Erro ao excluir tag:', error);
     throw error;
   }
 };

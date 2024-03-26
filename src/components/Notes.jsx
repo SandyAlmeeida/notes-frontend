@@ -22,6 +22,10 @@ const Notes = () => {
     return <div>Error: {error}</div>;
   }
   
+  const handleNewClick = () => {
+    navigate(`/notes/new`);
+  };
+  
   const handleEditClick = (noteId) => {
     navigate(`/notes/${noteId}/edit`);
   };
@@ -32,10 +36,14 @@ const Notes = () => {
 
   return (
     <div className="m-4">
-      <h2>Notas</h2>
+      <div className="d-flex justify-content-between">
+        <h2>Notas</h2>
+        <button type="button" className="btn btn-primary" onClick={() => handleNewClick()}>Criar Nota</button>
+      </div>
       <table className="table">
         <thead>
           <tr>
+            <th scope="col">ID</th>
             <th scope="col">Título</th>
             <th scope="col">Descrição</th>
             <th scope="col"></th>
@@ -44,6 +52,7 @@ const Notes = () => {
         <tbody>
           {notes.map(note => (
             <tr key={note.id}>
+              <td>{note.id}</td>
               <td>{note.title}</td>
               <td>{note.description}</td>
               <td align='right'>

@@ -1,8 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchTags as fetchTagsAPI, createTag as createTagAPI, updateTag as updateTagAPI, deleteTag as deleteTagAPI } from '../api/tagsAPI';
+import { 
+  fetchTags as fetchTagsAPI, 
+  fetchTagById as fetchTagByIdAPI,
+  createTag as createTagAPI, 
+  updateTag as updateTagAPI, 
+  deleteTag as deleteTagAPI 
+} from '../api/tagsAPI';
 
 const initialState = {
   tags: [],
+  tag: {},
+  editedTag: {},
   status: 'idle',
   error: null
 };
@@ -12,13 +20,20 @@ export const fetchTags = createAsyncThunk('tags/fetchTags', async () => {
   return response;
 });
 
+export const fetchTagById = createAsyncThunk('tags/fetchTagById', async (tagId) => {
+  const response = await fetchTagByIdAPI(tagId);
+  return response;
+});
+
 export const createTag = createAsyncThunk('tags/createTag', async (tagData) => {
   const response = await createTagAPI(tagData);
   return response;
 });
 
 export const updateTag = createAsyncThunk('tags/updateTag', async (tagData) => {
-  const response = await updateTagAPI(tagData);
+  const { id } = tagData;
+  delete tagData.id;
+  const response = await updateTagAPI(id, tagData);
   return response;
 });
 
@@ -30,7 +45,11 @@ export const deleteTag = createAsyncThunk('tags/deleteTag', async (tagId) => {
 const tagsSlice = createSlice({
   name: 'tags',
   initialState,
-  reducers: {},
+  reducers: {
+    setEditedTag: (state, action) => {
+      state.editedTag = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTags.pending, (state) => {
@@ -41,6 +60,17 @@ const tagsSlice = createSlice({
         state.tags = action.payload;
       })
       .addCase(fetchTags.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchTagById.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchTagById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.tag = action.payload;
+      })
+      .addCase(fetchTagById.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
@@ -60,5 +90,8 @@ const tagsSlice = createSlice({
       });
   }
 });
+
+
+export const { setEditedTag } = tagsSlice.actions; // Exportar a ação para definir a tag editada
 
 export default tagsSlice.reducer;
